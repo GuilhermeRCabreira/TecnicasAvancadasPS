@@ -4,15 +4,15 @@ public class MenuPrincipalControle implements ActionListener {
     private PedidosInternos ped;
     private RedeSocial rede;
     private SolicitacaoFoto foto;
-    private Usuario u;
+    private Usuario usuario;
     private PedidosInternosDAO pedDAO;
     private UsuarioDao usuDAO;
 
-    public MenuPrincipalControle(JanelaPrincipal jp, Usuario u, PedidosInternos ped, SolicitacaoFoto foto,
+    public MenuPrincipalControle(JanelaPrincipal jp, Usuario usuario, PedidosInternos ped, SolicitacaoFoto foto,
             RedeSocial rede) {
         super();
         this.jp = jp;
-        this.u = usuario;
+        this.usuario = usuario;
         this.ped = ped;
         this.foto = foto;
         this.rede = rede;
@@ -39,11 +39,11 @@ public class MenuPrincipalControle implements ActionListener {
         String id = jp.getTaunt().getFieldUsuario().getText();
         String senhaAcesso = jp.getTaunt().getFieldSenha().getText();
 
-        u.setId(id);
-        u.setSenhaAcesso(senhaAcesso);
+        usuario.setId(id);
+        usuario.setSenhaAcesso(senhaAcesso);
 
         if (u.verificaEspV().size() > 0) {
-            System.out.println("Campos " + u.verificaEspV() + "estão em branco!");
+            System.out.println("Campos " + usuario.verificaEspV() + "estão em branco!");
         } else {
             if (usuDAO.consultaUsuario(u)) {
                 this.jp.getMenuAscom().setEnabled(true);
