@@ -35,6 +35,7 @@ public class MenuPrincipalControle implements ActionListener {
 
     }
 
+    // Metodo responsavel por consultar o Login
     public void consultaUsuario() {
         String id = jp.getTaunt().getFieldUsuario().getText();
         String senhaAcesso = jp.getTaunt().getFieldSenha().getText();
@@ -43,16 +44,17 @@ public class MenuPrincipalControle implements ActionListener {
         usuario.setSenhaAcesso(senhaAcesso);
 
         if (u.verificaEspV().size() > 0) {
-            System.out.println("Campos " + usuario.verificaEspV() + "estão em branco!");
+            System.out.println("Campos " + usuario.verificaEspV() + "estão em branco!"); // Aviso campos vazios
         } else {
             if (usuDAO.consultaUsuario(u)) {
-                this.jp.getMenuAscom().setEnabled(true);
+                this.jp.getMenuAscom().setEnabled(true); // Liberacao do menu ASCOM
             } else {
-                System.out.println("Usuario ou senha não encontrado!");
+                System.out.println("Usuario ou senha não encontrado!"); // Mensagem falha login
             }
         }
     }
 
+    // Metodo responsavel por cadastrar a rede social
     public void cadastraRede() {
         String orgao = this.jp.getTrede().getFieldOrgao().getText();
         String responsavel = this.jp.getTrede().getFieldResponsavel().getText();
@@ -75,51 +77,52 @@ public class MenuPrincipalControle implements ActionListener {
         rede.setOutra(outra);
 
         if (rede.verificaEspV().size() > 0) {
-            System.out.println("Campos " + rede.verificaEspV() + "estão em branco!");
+            System.out.println("Campos " + rede.verificaEspV() + "estão em branco!");// Aviso campos vazios
         } else {
             if (pedDAO.solicitaFoto(foto)) {
-                System.out.println("Solicitação realizada com sucesso");
+                System.out.println("Solicitação realizada com sucesso");// Mensagem de sucesso
                 this.jp.getTfoto().limpaTela();
             } else {
-                System.out.println("Falha ao solicitar!");
+                System.out.println("Falha ao solicitar!");// Mensagem falha
                 this.jp.getTfoto().limpaTela();
             }
         }
     }
 
+    // Void com as acoes dos botoes
     @Override
     public void actionPerformed(ActionEvent e) {
        
         if (e.getActionCommand().equals("Menu Autenticar")) {
-            jp.puxaTelaAutenticacao();
+            jp.puxaTelaAutenticacao(); // TelaDeAutenticacao
         }
         if (e.getActionCommand().equals("Sair")) {
-            jp.dispose();
+            jp.dispose(); // Fecha JFrame
         }
         if (e.getActionCommand().equals("Cadastro de rede social afiliada à UFCSPA")) {
-            jp.puxaTelaRede();
+            jp.puxaTelaRede(); // TelaCadastroRede
         }
         if (e.getActionCommand().equals("Solicitação de cobertura fotográfica ou localização de imagens")) {
-            jp.puxaTelaFoto();
+            jp.puxaTelaFoto(); // TelaSolicitacaoFoto
         }
         if (e.getActionCommand().equals("Autenticar")) {
 
-            consultaUsuario();
+            consultaUsuario(); // Login
 
         }
         if (e.getActionCommand().equals("Cancelar")) {
 
-            jp.getTrede().limpaTela();
-            jp.getTaunt().limpaTela();
-            jp.getTfoto().limpaTela();
-            jp.puxaTelaInicio();
+            jp.getTrede().limpaTela(); // Limpar tela do JPanel TelaCadastroRede
+            jp.getTaunt().limpaTela(); // Limpar tela do JPanel TelaDeAutenticacao
+            jp.getTfoto().limpaTela(); // Limpar tela do JPanel TelaSolicitacaoFoto
+            jp.puxaTelaInicio(); // retornar ao menu principal
 
         }
         if (e.getActionCommand().equals("Enviar")) {
-            cadastraRede();
-            solicitaFoto();
-            jp.getTrede().limpaTela();
-            jp.getTfoto().limpaTela();
+            cadastraRede(); // Cadastra rede social
+            solicitaFoto(); // Registra solicitacao
+            jp.getTrede().limpaTela(); // Limpar tela do JPanel TelaCadastroRede
+            jp.getTfoto().limpaTela();  // Limpar tela do JPanel TelaSolicitacaoFoto
         }
     }
 
